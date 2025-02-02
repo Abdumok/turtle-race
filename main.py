@@ -20,10 +20,30 @@ def initial_turtle():
         new_turtle.color(colors[i])
         new_turtle.goto(-480, y_position[i])
         turtles.append(new_turtle)
-
+# Draw start line
+def start_line():
+    s_line = Turtle()
+    s_line.hideturtle()
+    s_line.color("white")
+    s_line.penup()
+    s_line.goto(-460, -120)
+    s_line.left(90)
+    s_line.pendown()
+    s_line.forward(240)
+# Draw end line
+def end_line():
+    e_line = Turtle()
+    e_line.hideturtle()
+    e_line.color("white")
+    e_line.penup()
+    e_line.goto(460, -120)
+    e_line.left(90)
+    e_line.pendown()
+    e_line.forward(240)
 
 initial_turtle()
-
+start_line()
+end_line()
 race_on = True
 while race_on:
     for turtle in turtles:
