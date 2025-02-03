@@ -5,6 +5,8 @@ import time
 turtles = []
 colors = ["red", "orange", "green", "blue", "white"]
 y_position= [-100, -50, 0, 50, 100]
+goal_letters= ["G", "O", "A", "L"]
+goal_position= [80, 30, -30, -80]
 
 screen = Screen()
 screen.setup(width=1000, height=600)
@@ -41,6 +43,7 @@ def end_line():
     e_line.left(90)
     e_line.pendown()
     e_line.forward(240)
+
 def is_wining(bet, color):
     write_turtle = Turtle()
     write_turtle.hideturtle()
@@ -52,15 +55,28 @@ def is_wining(bet, color):
     else:
         screen.bgcolor("deep pink")
         write_turtle.write(arg="YOU LOSE", align="center", font=("arial", 28, "bold"))
+# Write Goal word:
+def goal(letters, pos):
+    for i in range(4):
+        goal = Turtle()
+        goal.hideturtle()
+        goal.color("white")
+        goal.penup()
+        goal.goto(x= 480, y= pos[i])
+        goal.pendown()
+        goal.write(arg=letters[i], align="center", font=("arial", 12, "bold"))
 
 
+goal(goal_letters, goal_position)
 initial_turtle()
 start_line()
 end_line()
 
+
 user_bet= screen.textinput(title="Guess the winner", prompt="Enter the color for the winner: ")
 winning_color=""
 race_on = True
+
 while race_on:
     for turtle in turtles:
         turtle.forward(random.random()*5)
@@ -69,8 +85,8 @@ while race_on:
             race_on = False
         else:
             pass
+        time.sleep(0.005)
         screen.update()
-        time.sleep(0.001)
 
 is_wining(user_bet, winning_color)
 
