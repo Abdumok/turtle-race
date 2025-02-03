@@ -2,6 +2,8 @@ import random
 from turtle import Turtle, Screen
 import time
 
+TURTLE_SPEED= 2
+
 turtles = []
 colors = ["red", "orange", "green", "blue", "white"]
 y_position= [-100, -50, 0, 50, 100]
@@ -12,7 +14,7 @@ screen = Screen()
 screen.setup(width=1000, height=600)
 screen.bgcolor("black")
 screen.title("Turtle Race v1.00")
-screen.tracer(0)
+
 
 # Create turtles
 def initial_turtle():
@@ -66,26 +68,24 @@ def goal(letters, pos):
         goal.pendown()
         goal.write(arg=letters[i], align="center", font=("arial", 12, "bold"))
 
+user_bet= screen.textinput(title="Guess the winner", prompt="Enter the color for the winner: ")
+winning_color=""
+race_on = True
 
+screen.tracer(0)
 goal(goal_letters, goal_position)
 initial_turtle()
 start_line()
 end_line()
 
-
-user_bet= screen.textinput(title="Guess the winner", prompt="Enter the color for the winner: ")
-winning_color=""
-race_on = True
-
 while race_on:
     for turtle in turtles:
-        turtle.forward(random.random()*5)
+        turtle.forward(random.random()*TURTLE_SPEED)
         if turtle.xcor() >= 450:
             winning_color = turtle.pencolor()
             race_on = False
         else:
             pass
-        time.sleep(0.005)
         screen.update()
 
 is_wining(user_bet, winning_color)
