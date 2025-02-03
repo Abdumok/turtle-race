@@ -2,7 +2,7 @@ import random
 from turtle import Turtle, Screen
 import time
 
-TURTLE_SPEED= 2
+TURTLE_SPEED= 5
 
 turtles = []
 colors = ["red", "orange", "green", "blue", "white"]
@@ -14,7 +14,6 @@ screen = Screen()
 screen.setup(width=1000, height=600)
 screen.bgcolor("black")
 screen.title("Turtle Race v1.00")
-
 
 # Create turtles
 def initial_turtle():
@@ -41,11 +40,11 @@ def end_line():
     e_line.hideturtle()
     e_line.color("white")
     e_line.penup()
-    e_line.goto(460, -120)
+    e_line.goto(468, -120)
     e_line.left(90)
     e_line.pendown()
     e_line.forward(240)
-
+# TO determine the winner
 def is_wining(bet, color):
     write_turtle = Turtle()
     write_turtle.hideturtle()
@@ -67,21 +66,62 @@ def goal(letters, pos):
         goal.goto(x= 480, y= pos[i])
         goal.pendown()
         goal.write(arg=letters[i], align="center", font=("arial", 12, "bold"))
+# Draw Flag:
+def flag():
+    flag_element= []
+    xcor= 473
+    for j in range(2):
+        ycor= -110
+        for i in range(17):
+            white= Turtle()
+            white.shape("square")
+            white.color("white")
+            white.penup()
+            white.shapesize(.25)
+            white.goto(xcor, ycor)
+            flag_element.append(white)
+            ycor += 14
+        xcor += 14
+
+    xcor= 480
+    ycor= -117
+    for i in range(17):
+        white= Turtle()
+        white.color("white")
+        white.shape("square")
+        white.penup()
+        white.shapesize(0.25)
+        white.goto(xcor, ycor)
+        flag_element.append(white)
+        ycor += 14
+# Show counting down numbers:
+def count_down():
+    count= Turtle()
+    count.hideturtle()
+    count.color("white")
+    count.goto(x=0, y=0)
+    for i in range(4):
+        count.write(arg=(3-i), align="center", font=("courier", 48, "bold"))
+        time.sleep(1)
+        screen.update()
+        count.clear()
 
 user_bet= screen.textinput(title="Guess the winner", prompt="Enter the color for the winner: ")
 winning_color=""
 race_on = True
 
 screen.tracer(0)
-goal(goal_letters, goal_position)
+# goal(goal_letters, goal_position)
+flag()
 initial_turtle()
 start_line()
 end_line()
+count_down()
 
 while race_on:
     for turtle in turtles:
         turtle.forward(random.random()*TURTLE_SPEED)
-        if turtle.xcor() >= 450:
+        if turtle.xcor() >= 455:
             winning_color = turtle.pencolor()
             race_on = False
         else:
@@ -89,7 +129,5 @@ while race_on:
         screen.update()
 
 is_wining(user_bet, winning_color)
-
-
 
 screen.exitonclick()
