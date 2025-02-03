@@ -11,6 +11,7 @@ screen.setup(width=1000, height=600)
 screen.bgcolor("black")
 screen.title("Turtle Race v1.00")
 screen.tracer(0)
+
 # Create turtles
 def initial_turtle():
     for i in range(5):
@@ -40,16 +41,39 @@ def end_line():
     e_line.left(90)
     e_line.pendown()
     e_line.forward(240)
+def is_wining(bet, color):
+    write_turtle = Turtle()
+    write_turtle.hideturtle()
+    write_turtle.color("black")
+
+    if user_bet == color:
+        screen.bgcolor("forest green")
+        write_turtle.write(arg="YOU WIN", align="center", font=("arial", 28, "bold"))
+    else:
+        screen.bgcolor("deep pink")
+        write_turtle.write(arg="YOU LOSE", align="center", font=("arial", 28, "bold"))
+
 
 initial_turtle()
 start_line()
 end_line()
+
+user_bet= screen.textinput(title="Guess the winner", prompt="Enter the color for the winner: ")
+winning_color=""
 race_on = True
 while race_on:
     for turtle in turtles:
         turtle.forward(random.random()*5)
-    screen.update()
-    time.sleep(0.05)
+        if turtle.xcor() >= 450:
+            winning_color = turtle.pencolor()
+            race_on = False
+        else:
+            pass
+        screen.update()
+        time.sleep(0.001)
+
+is_wining(user_bet, winning_color)
+
 
 
 screen.exitonclick()
